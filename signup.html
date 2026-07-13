@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readora - Sign Up</title>
+    <meta name="description" content="أنشئ حساباً جديداً في ريدورا وابدأ رحلتك في عالم القراءة.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .auth-shell {
+            width: min(100%, 460px);
+            padding: 2rem;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-header p {
+            color: var(--text-secondary);
+        }
+
+        .auth-form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .auth-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .auth-link {
+            color: var(--accent-secondary);
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            color: var(--text-muted);
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--glass-border);
+        }
+
+        .auth-divider span {
+            padding: 0 0.75rem;
+        }
+
+        .auth-message {
+            min-height: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .auth-message.success {
+            color: var(--success);
+        }
+
+        .auth-message.error {
+            color: var(--danger);
+        }
+       .btn-secondary[data-auth-google] {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       width: 100%;
+}
+    </style>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./assets/images/icon.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+    <div class="glass-panel auth-shell">
+        <div class="auth-header">
+            <a href="index.html" class="logo" style="justify-content:center; margin-bottom:1rem;">
+                <i class="ph-fill ph-book-open-text"></i> Readora
+            </a>
+            <h1 class="gradient-text" data-i18n="auth_signup_title">Create a new account</h1>
+            <p data-i18n="auth_signup_subtitle">Start your Readora journey today.</p>
+        </div>
+
+        <div id="auth-message" class="auth-message"></div>
+
+        <form id="signup-form" class="auth-form-grid">
+            <div class="input-group">
+                <i class="ph ph-user-circle"></i>
+                <input type="text" id="signup-name" class="form-input" data-i18n-placeholder="auth_full_name" placeholder="Full Name" required>
+            </div>
+
+            <div class="input-group">
+                <i class="ph ph-envelope-simple"></i>
+                <input type="email" id="signup-email" class="form-input" data-i18n-placeholder="auth_email" placeholder="Email" required>
+            </div>
+
+            <div class="input-group">
+                <i class="ph ph-lock-simple"></i>
+                <input type="password" id="signup-password" class="form-input" data-i18n-placeholder="auth_password" placeholder="Password" required>
+                <button type="button" class="auth-password-toggle" data-auth-password-toggle="signup-password"><i class="ph ph-eye"></i></button>
+            </div>
+
+            <div class="input-group">
+                <i class="ph ph-lock-simple"></i>
+                <input type="password" id="signup-confirm" class="form-input" data-i18n-placeholder="auth_confirm_password" placeholder="Confirm Password" required>
+                <button type="button" class="auth-password-toggle" data-auth-password-toggle="signup-confirm"><i class="ph ph-eye"></i></button>
+            </div>
+
+            <button type="submit" class="btn btn-primary auth-submit" data-i18n="auth_signup_submit">Create Account</button>
+        </form>
+
+        <div class="auth-divider"><span data-i18n="auth_or">OR</span></div>
+
+        <button type="button" class="btn btn-secondary" data-auth-google>
+            <i class="ph ph-google-logo"></i> <span data-i18n="auth_continue_google">Continue with Google</span>
+        </button>
+
+        <p class="auth-row" style="margin-top:1rem;">
+            <span data-i18n="auth_have_account">Already have an account?</span>
+            <a href="login.html" class="auth-link" data-i18n="auth_login_link">Login</a>
+        </p>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

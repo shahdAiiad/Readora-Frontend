@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readora - القارئ</title>
+    <meta name="description" content="استمتع بتجربة قراءة مريحة وسلسة على منصة ريدورا.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        body.reader-mode {
+            background-color: var(--bg-primary);
+            transition: all 0.3s ease;
+        }
+
+        .reader-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .reader-navbar.hidden {
+            transform: translateY(-100%);
+        }
+
+        .reader-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        .reader-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .reader-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 6rem 1.5rem 8rem;
+            font-size: 18px; /* Default size */
+            line-height: 2;
+            transition: font-size 0.3s ease;
+        }
+
+        .chapter-title {
+            font-size: 2em;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--accent-primary);
+        }
+
+        .reader-paragraph {
+            margin-bottom: 1.5rem;
+        }
+
+        .reader-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .reader-controls.hidden {
+            transform: translateY(100%);
+        }
+
+        .font-controls {
+            position: absolute;
+            bottom: 100%;
+            right: 1rem;
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            display: none;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        html[dir="rtl"] .font-controls {
+            right: auto;
+            left: 1rem;
+        }
+
+        .font-controls.active {
+            display: flex;
+        }
+
+        .chapter-nav-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chapter-nav-btn:hover:not(:disabled) {
+            background: var(--accent-primary);
+            color: white;
+        }
+        
+        .chapter-nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Toggle UI Area */
+        .ui-toggle-area {
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+        }
+        
+        /* Manga mode specific */
+        .manga-image {
+            width: 100%;
+            margin-bottom: 0;
+            display: block;
+        }
+    </style>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./assets/images/icon.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0a0e17">
+</head>
+<body class="reader-mode">
+
+    <div class="ui-toggle-area" id="ui-toggle"></div>
+
+    <!-- Top Bar -->
+    <div class="reader-navbar" id="top-bar">
+        <a href="javascript:history.back()" class="btn-icon" aria-label="رجوع"><i class="ph ph-arrow-right"></i></a>
+        <div class="reader-title" id="book-title">تحميل...</div>
+        <div class="reader-actions">
+            <button class="btn-icon" id="bookmark-btn" data-require-auth="bookmark" aria-label="إضافة إشارة مرجعية"><i class="ph ph-bookmark-simple"></i></button>
+            <button class="btn-icon" id="theme-toggle-reader" aria-label="تبديل الوضع الليلي والنهاري"><i class="ph ph-sun"></i></button>
+        </div>
+    </div>
+
+    <!-- Reader Content -->
+    <div class="reader-content" id="reader-content">
+        <!-- Injected via JS -->
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="reader-controls" id="bottom-bar">
+        <button class="chapter-nav-btn" id="prev-btn">
+            <i class="ph ph-caret-right"></i> السابق
+        </button>
+        
+        <div style="position: relative;">
+            <button class="btn-icon" id="font-btn" aria-label="إعدادات حجم الخط"><i class="ph ph-text-aa"></i></button>
+            <div class="font-controls" id="font-controls">
+                <button class="btn-icon" id="font-minus" aria-label="تصغير الخط"><i class="ph ph-minus"></i></button>
+                <span id="font-size-display" style="display: flex; align-items: center; font-weight: bold;">18</span>
+                <button class="btn-icon" id="font-plus" aria-label="تكبير الخط"><i class="ph ph-plus"></i></button>
+            </div>
+        </div>
+
+        <button class="chapter-nav-btn" id="next-btn">
+            التالي <i class="ph ph-caret-left"></i>
+        </button>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            const type = urlParams.get('type') || 'novel';
+            
+            let item = null;
+            if (type === 'manga') {
+                item = window.readoraData.manga.find(m => m.id === id);
+            } else {
+                item = window.readoraData.novels.find(n => n.id === id);
+            }
+
+            if (!item) {
+                document.getElementById('reader-content').innerHTML = `<h2 style="text-align:center;">خطأ في تحميل المحتوى</h2>`;
+                return;
+            }
+
+            // State
+            let currentChapter = 1;
+            let fontSize = parseInt(localStorage.getItem('readora_fontSize')) || 18;
+            let uiVisible = true;
+            
+            // Load saved progress
+            const progress = JSON.parse(localStorage.getItem('readora_progress') || '{}');
+            if (progress[id]) {
+                currentChapter = progress[id].chapter;
+            }
+
+            // Elements
+            const contentDiv = document.getElementById('reader-content');
+            const titleEl = document.getElementById('book-title');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const topBar = document.getElementById('top-bar');
+            const bottomBar = document.getElementById('bottom-bar');
+            const uiToggleArea = document.getElementById('ui-toggle');
+            const fontBtn = document.getElementById('font-btn');
+            const fontControls = document.getElementById('font-controls');
+            const fontMinus = document.getElementById('font-minus');
+            const fontPlus = document.getElementById('font-plus');
+            const fontDisplay = document.getElementById('font-size-display');
+            const themeBtn = document.getElementById('theme-toggle-reader');
+            const bookmarkBtn = document.getElementById('bookmark-btn');
+
+            // Apply saved font size
+            contentDiv.style.fontSize = `${fontSize}px`;
+            fontDisplay.textContent = fontSize;
+
+            const renderChapter = () => {
+                const lang = LanguageManager.currentLang;
+                const bookTitle = lang === 'ar' ? item.titleAr : item.titleEn;
+                titleEl.textContent = `${bookTitle} - ${LanguageManager.get('chapters')} ${currentChapter}`;
+                
+                // Update navigation buttons
+                prevBtn.disabled = currentChapter <= 1;
+                nextBtn.disabled = currentChapter >= item.chapters;
+                
+                // Update progress
+                progress[id] = { chapter: currentChapter, timestamp: Date.now() };
+                localStorage.setItem('readora_progress', JSON.stringify(progress));
+
+                if (type === 'manga') {
+                    // Render dummy manga images
+                    let html = `<h1 class="chapter-title">${LanguageManager.get('chapters')} ${currentChapter}</h1>`;
+                    for(let i = 1; i <= 5; i++) {
+                        html += `<img src="https://picsum.photos/seed/${id}chap${currentChapter}img${i}/800/1200" class="manga-image" alt="Page ${i}" loading="lazy">`;
+                    }
+                    contentDiv.innerHTML = html;
+                    contentDiv.style.padding = '4rem 0 5rem'; // Remove side padding for manga
+                } else {
+                    // Render dummy novel text
+                    const paragraphs = [
+                        `هذا هو النص الوهمي للفصل ${currentChapter} من الرواية. تم إنشاء هذا النص لتجربة واجهة القراءة الفاخرة التي توفرها المنصة.`,
+                        `في هذا الجزء من القصة، تتصاعد الأحداث ويبدأ بطلنا في استكشاف قدراته الحقيقية. الظلام يقترب ولكن الأمل لا يزال موجوداً.`,
+                        `"لا يمكنك الهرب من مصيرك"، قال الصوت الغامض الذي تردد في أرجاء الكهف المظلم.`,
+                        `نظر بطلنا إلى السماء المليئة بالنجوم، متذكراً الوعد الذي قطعه على نفسه. سيفعل كل ما يلزم لحماية من يحب.`,
+                        `وهكذا تستمر الرحلة المحفوفة بالمخاطر...`
+                    ];
+                    
+                    const enParagraphs = [
+                        `This is the dummy text for chapter ${currentChapter} of the novel. It is created to test the premium reading interface provided by the platform.`,
+                        `In this part of the story, events escalate and our hero begins to explore his true powers. The darkness is approaching but hope still exists.`,
+                        `"You cannot escape your destiny," said the mysterious voice echoing through the dark cave.`,
+                        `Our hero looked at the starry sky, remembering the promise he made to himself. He will do whatever it takes to protect the ones he loves.`,
+                        `And so, the perilous journey continues...`
+                    ];
+                    
+                    const paras = lang === 'ar' ? paragraphs : enParagraphs;
+                    
+                    let html = `<h1 class="chapter-title">${LanguageManager.get('chapters')} ${currentChapter}</h1>`;
+                    for(let i = 0; i < 15; i++) {
+                        // Repeat text to make it long enough
+                        html += `<p class="reader-paragraph">${paras[i % paras.length]}</p>`;
+                    }
+                    contentDiv.innerHTML = html;
+                    contentDiv.style.padding = '6rem 1.5rem 8rem'; // Restore padding
+                }
+                
+                window.scrollTo(0, 0);
+            };
+
+            // Event Listeners
+            prevBtn.addEventListener('click', () => {
+                if(currentChapter > 1) {
+                    currentChapter--;
+                    renderChapter();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if(currentChapter < item.chapters) {
+                    currentChapter++;
+                    renderChapter();
+                }
+            });
+
+            uiToggleArea.addEventListener('click', () => {
+                uiVisible = !uiVisible;
+                if (uiVisible) {
+                    topBar.classList.remove('hidden');
+                    bottomBar.classList.remove('hidden');
+                } else {
+                    topBar.classList.add('hidden');
+                    bottomBar.classList.add('hidden');
+                    fontControls.classList.remove('active');
+                }
+            });
+
+            fontBtn.addEventListener('click', () => {
+                fontControls.classList.toggle('active');
+            });
+
+            fontPlus.addEventListener('click', () => {
+                if(fontSize < 32) {
+                    fontSize += 2;
+                    contentDiv.style.fontSize = `${fontSize}px`;
+                    fontDisplay.textContent = fontSize;
+                    localStorage.setItem('readora_fontSize', fontSize);
+                }
+            });
+
+            fontMinus.addEventListener('click', () => {
+                if(fontSize > 12) {
+                    fontSize -= 2;
+                    contentDiv.style.fontSize = `${fontSize}px`;
+                    fontDisplay.textContent = fontSize;
+                    localStorage.setItem('readora_fontSize', fontSize);
+                }
+            });
+
+            themeBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('readora_theme', newTheme);
+                themeBtn.querySelector('i').className = newTheme === 'light' ? 'ph ph-moon' : 'ph ph-sun';
+            });
+            
+            bookmarkBtn.addEventListener('click', () => {
+               // Update bookmark visual
+               const icon = bookmarkBtn.querySelector('i');
+               if (icon.classList.contains('ph-bookmark-simple')) {
+                   icon.classList.replace('ph-bookmark-simple', 'ph-fill');
+                   icon.classList.add('ph-bookmark-simple');
+                   icon.style.color = 'var(--accent-primary)';
+               } else {
+                   icon.classList.replace('ph-fill', 'ph');
+                   icon.style.color = '';
+               }
+               // Usually bookmark would save a specific paragraph or specific list, but for now we show a visual feedback.
+               alert(LanguageManager.get('btn_add_favorite') + ' (Bookmark Saved)');
+            });
+
+            // Initialize correct theme icon
+            const currentTheme = localStorage.getItem('readora_theme') || 'dark';
+            themeBtn.querySelector('i').className = currentTheme === 'light' ? 'ph ph-moon' : 'ph ph-sun';
+
+            // Language update
+            document.addEventListener('languageChanged', renderChapter);
+
+            // Initial render
+            renderChapter();
+        });
+    </script>
+</body>
+</html>

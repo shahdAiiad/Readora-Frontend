@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readora - الصفحة غير موجودة</title>
+    <meta name="description" content="الصفحة يلي بتدور عليها مش موجودة. ارجع لصفحة ريدورا الرئيسية وتابع قراءتك.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./assets/images/icon.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-book-open-text"></i> Readora
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link" data-i18n="nav_home">الرئيسية</a></li>
+                <li><a href="explore.html" class="nav-link" data-i18n="nav_explore">تصفح</a></li>
+                <li><a href="favorites.html" class="nav-link" data-i18n="nav_favorites">المفضلة</a></li>
+                <li><a href="about.html" class="nav-link" data-i18n="nav_about">من نحن</a></li>
+                <li><a href="profile.html" class="nav-link" data-i18n="nav_profile">حسابي</a></li>
+                <li class="nav-login-item" id="nav-login-item"></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div id="auth-header-slot"></div>
+                <button id="lang-toggle" class="btn-icon" aria-label="تغيير اللغة / Change language">
+                    <i class="ph ph-translate"></i>
+                    <span style="font-size: 0.8rem; margin: 0 4px; font-weight: bold;">EN</span>
+                </button>
+                <button id="theme-toggle" class="btn-icon" aria-label="تبديل الوضع الليلي والنهاري">
+                    <i class="ph ph-sun"></i>
+                </button>
+                <button class="mobile-menu-btn btn-icon" aria-label="فتح قائمة التنقل">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section" style="min-height: 70vh; display: flex; align-items: center;">
+        <div class="container" style="text-align: center;">
+            <i class="ph-fill ph-compass" style="font-size: 4rem; color: var(--accent-primary); margin-bottom: 1.5rem; display: inline-block;"></i>
+            <h1 class="gradient-text" style="font-size: 5rem; letter-spacing: -0.02em; margin-bottom: 1rem;">404</h1>
+            <h2 style="margin-bottom: 1rem;" data-i18n="notfound_title">هاي الصفحة مش موجودة</h2>
+            <p style="color: var(--text-secondary); max-width: 480px; margin: 0 auto 2.5rem;" data-i18n="notfound_desc">يمكن الرابط تغيّر أو الصفحة انحذفت. تعال نرجعك لعالم القراءة.</p>
+            <a href="index.html" class="btn btn-primary">
+                <i class="ph ph-house"></i>
+                <span data-i18n="notfound_home">العودة للرئيسية</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+                        <i class="ph-fill ph-book-open-text"></i> Readora
+                    </a>
+                    <p data-i18n="footer_desc">ريدورا هي المنصة الرائدة لقراءة الروايات والمانجا العربية والمترجمة بجودة عالية وتجربة مستخدم لا مثيل لها.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_rights">جميع الحقوق محفوظة لريدورا 2026</h4>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/language.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

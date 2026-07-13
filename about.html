@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readora - من نحن</title>
+    <meta name="description" content="تعرف على رؤية ومهمة ريدورا، منصتك المفضلة لقراءة الروايات والمانجا العربية.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./assets/images/icon.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-book-open-text"></i> Readora
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link" data-i18n="nav_home">الرئيسية</a></li>
+                <li><a href="explore.html" class="nav-link" data-i18n="nav_explore">تصفح</a></li>
+                <li><a href="favorites.html" class="nav-link" data-i18n="nav_favorites">المفضلة</a></li>
+                <li><a href="about.html" class="nav-link active" data-i18n="nav_about">من نحن</a></li>
+                <li><a href="profile.html" class="nav-link" data-i18n="nav_profile">حسابي</a></li>
+                <li class="nav-login-item" id="nav-login-item"></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div id="auth-header-slot"></div>
+                <button id="lang-toggle" class="btn-icon" aria-label="تغيير اللغة / Change language"><i class="ph ph-translate"></i><span style="font-size: 0.8rem; margin: 0 4px; font-weight: bold;">EN</span></button>
+                <button id="theme-toggle" class="btn-icon" aria-label="تبديل الوضع الليلي والنهاري"><i class="ph ph-sun"></i></button>
+                <button class="mobile-menu-btn btn-icon" aria-label="فتح قائمة التنقل"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <section class="section">
+        <div class="container">
+            <div class="glass-panel" style="padding: 4rem; text-align: center; max-width: 800px; margin: 0 auto;">
+                <i class="ph-fill ph-book-open-text gradient-text" style="font-size: 5rem; margin-bottom: 2rem;"></i>
+                <h1 class="gradient-text" style="font-size: 3rem; margin-bottom: 1.5rem;" data-i18n="about_title">ما هي ريدورا؟</h1>
+                <p style="font-size: 1.25rem; color: var(--text-secondary); line-height: 2;" data-i18n="about_desc">نحن فريق شغوف بالقراءة، قررنا بناء منصة تليق بالقارئ العربي. نهدف إلى توفير محتوى غني بتجربة بصرية فريدة.</p>
+                
+                <div class="about-highlights">
+                    <div class="glass-card about-highlight-card">
+                        <i class="ph-fill ph-rocket" style="font-size: 3rem; color: var(--accent-primary); margin-bottom: 1rem;"></i>
+                   <h3 data-i18n="about_vision_title">رؤيتنا</h3>
+                  <p style="color: var(--text-secondary); margin-top: 0.5rem;" data-i18n="about_vision_text">أن نكون المنصة الأولى عالمياً لقراءة الروايات والمانجا بنظام اشتراك عادل للمبدعين والقراء. </p>
+                   </div>
+                    <div class="glass-card about-highlight-card">
+                        <i class="ph-fill ph-heart" style="font-size: 3rem; color: var(--danger); margin-bottom: 1rem;"></i>
+                    <h3 data-i18n="about_mission_title">مهمتنا</h3>
+                 <p style="color: var(--text-secondary); margin-top: 0.5rem;" data-i18n="about_mission_text">تقديم واجهة مذهلة وسلسة تحترم عين القارئ وتجعل من القراءة متعة يومية لا غنى عنها.</p> </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+                        <i class="ph-fill ph-book-open-text"></i> Readora
+                    </a>
+                    <p data-i18n="footer_desc">ريدورا هي المنصة الرائدة لقراءة الروايات والمانجا العربية والمترجمة بجودة عالية وتجربة مستخدم لا مثيل لها.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_rights">جميع الحقوق محفوظة لريدورا 2026</h4>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/language.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('languageChanged', () => {
+            const currentLang = LanguageManager.currentLang;
+            const rtlElements = document.querySelectorAll('.glass-card p');
+            // Re-align content if necessary (Optional Polish)
+        });
+    </script>
+</body>
+</html>

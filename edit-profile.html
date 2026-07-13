@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readora - تعديل الملف الشخصي</title>
+    <meta name="description" content="تعديل الملف الشخصي على ريدورا.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        body {
+            min-height: 100vh;
+        }
+
+        .edit-profile-page {
+            padding: 2rem 0 4rem;
+        }
+
+        .edit-profile-card {
+            padding: 2rem;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .edit-profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .edit-profile-header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .edit-profile-header p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .edit-profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .profile-photo-field {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .profile-photo-preview {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            flex-shrink: 0;
+        }
+
+        .profile-photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-photo-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.35rem;
+        }
+
+        .helper-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .field-error-message {
+            min-height: 1rem;
+            color: #ff7b7b;
+            font-size: 0.9rem;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .edit-profile-card {
+                padding: 1.25rem;
+            }
+
+            .profile-photo-field {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .form-actions .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .edit-profile-page {
+                padding: 1rem 0 2.5rem;
+            }
+
+            .edit-profile-card {
+                padding: 1rem;
+            }
+
+            .edit-profile-header h1 {
+                font-size: 1.35rem;
+            }
+        }
+    </style>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./assets/images/icon.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-book-open-text"></i> Readora
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link" data-i18n="nav_home">الرئيسية</a></li>
+                <li><a href="explore.html" class="nav-link" data-i18n="nav_explore">تصفح</a></li>
+                <li><a href="favorites.html" class="nav-link" data-i18n="nav_favorites">المفضلة</a></li>
+                <li><a href="about.html" class="nav-link" data-i18n="nav_about">من نحن</a></li>
+                <li><a href="profile.html" class="nav-link active" data-i18n="nav_profile">حسابي</a></li>
+                <li class="nav-login-item" id="nav-login-item"></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div id="auth-header-slot"></div>
+                <button id="lang-toggle" class="btn-icon" aria-label="تغيير اللغة / Change language"><i class="ph ph-translate"></i><span style="font-size: 0.8rem; margin: 0 4px; font-weight: bold;">EN</span></button>
+                <button id="theme-toggle" class="btn-icon" aria-label="تبديل الوضع الليلي والنهاري"><i class="ph ph-sun"></i></button>
+                <button class="mobile-menu-btn btn-icon" aria-label="فتح قائمة التنقل"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <section class="section edit-profile-page" style="padding-top: 0;">
+        <div class="container">
+            <div class="glass-panel edit-profile-card">
+                <div class="edit-profile-header">
+                    <div>
+                        <h1 data-i18n="edit_profile">تعديل الملف الشخصي</h1>
+                        <p data-i18n="profile_modal_subtitle">حدّث معلوماتك الشخصية بسهولة.</p>
+                    </div>
+                </div>
+
+                <form class="edit-profile-form" id="edit-profile-form" novalidate>
+                    <div class="profile-photo-field">
+                        <div class="profile-photo-preview">
+                            <img id="edit-profile-avatar" src="https://picsum.photos/seed/avatar/200/200" alt="Profile preview">
+                        </div>
+                        <div class="profile-photo-actions">
+                            <button type="button" class="btn btn-secondary" id="change-photo-btn" data-i18n="change_photo">تغيير الصورة</button>
+                            <input type="file" id="profile-photo-input" accept="image/*" hidden>
+                            <span class="helper-text" data-i18n="profile_photo_hint">PNG أو JPG حتى 5MB</span>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="profile-full-name" data-i18n="full_name">الاسم الكامل</label>
+                            <input type="text" id="profile-full-name" class="form-input" placeholder="أدخل اسمك الكامل" style="padding-right: 1rem; padding-left: 1rem;">
+                            <p class="field-error-message" data-field="fullName"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profile-email" data-i18n="email">البريد الإلكتروني</label>
+                            <input type="email" id="profile-email" class="form-input" style="padding-right: 1rem; padding-left: 1rem;">
+                            <p class="field-error-message" data-field="email"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profile-bio" data-i18n="profile_bio_label">السيرة الذاتية</label>
+                        <textarea id="profile-bio" class="form-input" rows="3" style="padding-right: 1rem; padding-left: 1rem;"></textarea>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="profile-password" data-i18n="new_password">كلمة المرور الجديدة</label>
+                            <input type="password" id="profile-password" class="form-input" placeholder="*********" style="padding-right: 1rem; padding-left: 1rem;">
+                            <p class="field-error-message" data-field="password"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profile-confirm-password" data-i18n="auth_confirm_password">تأكيد كلمة المرور</label>
+                            <input type="password" id="profile-confirm-password" class="form-input" placeholder="*********" style="padding-right: 1rem; padding-left: 1rem;">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="profile.html" class="btn btn-secondary" data-i18n="cancel">إلغاء</a>
+                        <button type="submit" class="btn btn-primary" data-i18n="save_changes">حفظ التغييرات</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+                        <i class="ph-fill ph-book-open-text"></i> Readora
+                    </a>
+                    <p data-i18n="footer_desc">ريدورا هي المنصة الرائدة لقراءة الروايات والمانجا العربية والمترجمة بجودة عالية وتجربة مستخدم لا مثيل لها.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_rights">جميع الحقوق محفوظة لريدورا 2026</h4>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/language.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const updatedKey = 'readora_profile_updated';
+            const form = document.getElementById('edit-profile-form');
+            const fullNameInput = document.getElementById('profile-full-name');
+            const emailInput = document.getElementById('profile-email');
+            const bioInput = document.getElementById('profile-bio');
+            const passwordInput = document.getElementById('profile-password');
+            const confirmPasswordInput = document.getElementById('profile-confirm-password');
+            const avatarInput = document.getElementById('profile-photo-input');
+            const changePhotoButton = document.getElementById('change-photo-btn');
+            const avatarPreview = document.getElementById('edit-profile-avatar');
+            const errorElements = document.querySelectorAll('.field-error-message');
+            
+            // Unify with global user
+            const authManager = window.AuthManager;
+            const langManager = window.LanguageManager || (typeof LanguageManager !== 'undefined' ? LanguageManager : null);
+
+            function getProfileState() {
+                if (authManager && authManager.state.user) {
+                    return authManager.state.user;
+                }
+                const saved = localStorage.getItem('readora_user');
+                if (saved) {
+                    try {
+                        return JSON.parse(saved);
+                    } catch (e) {
+                        // ignore
+                    }
+                }
+                
+                // Fallback demo user if accessed directly without being logged in
+                // (though auth manager should block this ideally)
+                return {
+                    name: 'Shahd Aiiad',
+                    email: 'shahd@example.com',
+                    bio: 'قارئ شغوف | عضو منذ 2026',
+                    avatar: 'https://picsum.photos/seed/avatar/200/200'
+                };
+            }
+
+            function clearErrors() {
+                errorElements.forEach((element) => {
+                    element.textContent = '';
+                });
+            }
+
+            function setError(field, message) {
+                const errorEl = document.querySelector(`[data-field="${field}"]`);
+                if (errorEl) {
+                    errorEl.textContent = message;
+                }
+            }
+
+            function populateForm(state) {
+                fullNameInput.value = state.name || state.fullName || '';
+                emailInput.value = state.email || '';
+                bioInput.value = state.bio || '';
+                passwordInput.value = '';
+                confirmPasswordInput.value = '';
+                avatarPreview.src = state.avatar || 'https://picsum.photos/seed/avatar/200/200';
+                clearErrors();
+            }
+
+            const state = getProfileState();
+            populateForm(state);
+
+            changePhotoButton.addEventListener('click', () => avatarInput.click());
+
+            avatarInput.addEventListener('change', (event) => {
+                const file = event.target.files && event.target.files[0];
+                if (!file) {
+                    return;
+                }
+                
+                // Max size check: 5MB
+                if (file.size > 5 * 1024 * 1024) {
+                    alert(langManager ? langManager.get('profile_photo_hint') : 'Image must be up to 5MB');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = () => {
+                    avatarPreview.src = reader.result;
+                    state.avatar = reader.result;
+                };
+                reader.readAsDataURL(file);
+            });
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                clearErrors();
+
+                const fullName = fullNameInput.value.trim();
+                const email = emailInput.value.trim();
+                const passwordValue = passwordInput.value;
+                const confirmPasswordValue = confirmPasswordInput.value;
+                const errors = [];
+
+                if (!fullName) {
+                    errors.push({ field: 'fullName', message: langManager ? langManager.get('auth_validation_fill_signup') : 'Full Name is required.' });
+                }
+
+                if (!email) {
+                    errors.push({ field: 'email', message: langManager ? langManager.get('auth_validation_email_required') : 'Please enter your email address.' });
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    errors.push({ field: 'email', message: langManager ? langManager.get('auth_error_invalid_email') : 'Please enter a valid email address.' });
+                }
+
+                if (passwordValue || confirmPasswordValue) {
+                    if (passwordValue !== confirmPasswordValue) {
+                        errors.push({ field: 'password', message: langManager ? langManager.get('auth_validation_passwords_match') : 'Passwords do not match.' });
+                    }
+                }
+
+                if (errors.length) {
+                    errors.forEach(({ field, message }) => setError(field, message));
+                    return;
+                }
+
+                state.name = fullName;
+                state.email = email;
+                state.bio = bioInput.value.trim();
+                if (passwordValue) {
+                    state.password = passwordValue;
+                }
+                
+                // Save globally
+                localStorage.setItem('readora_user', JSON.stringify(state));
+                if (authManager) authManager.state.user = state;
+                
+                localStorage.setItem(updatedKey, 'true');
+                window.location.href = 'profile.html';
+            });
+        });
+    </script>
+</body>
+</html>

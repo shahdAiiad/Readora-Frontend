@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readora - تفاصيل</title>
+    <meta name="description" content="تفاصيل الرواية أو المانجا، الفصول، والتقييمات على ريدورا.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .details-header {
+            padding: 5rem 0 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .details-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: blur(20px) brightness(0.3);
+            transform: scale(1.1);
+            z-index: -1;
+        }
+
+        [data-theme="light"] .details-bg {
+            filter: blur(20px) brightness(0.8);
+        }
+
+        .details-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .details-cover {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .details-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .details-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .details-author {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .details-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass-bg);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--glass-border);
+        }
+
+        .meta-item i {
+            color: var(--accent-primary);
+            font-size: 1.2rem;
+        }
+
+        .details-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: var(--text-primary);
+        }
+
+        .details-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .details-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .details-cover {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .details-meta {
+                justify-content: center;
+            }
+            .details-actions {
+                justify-content: center;
+            }
+        }
+    </style>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./assets/images/icon.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-book-open-text"></i> Readora
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link" data-i18n="nav_home">الرئيسية</a></li>
+                <li><a href="explore.html" class="nav-link" data-i18n="nav_explore">تصفح</a></li>
+                <li><a href="favorites.html" class="nav-link" data-i18n="nav_favorites">المفضلة</a></li>
+                <li class="nav-login-item" id="nav-login-item"></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div id="auth-header-slot"></div>
+                <button id="lang-toggle" class="btn-icon" aria-label="تغيير اللغة / Change language"><i class="ph ph-translate"></i><span style="font-size: 0.8rem; margin: 0 4px; font-weight: bold;">EN</span></button>
+                <button id="theme-toggle" class="btn-icon" aria-label="تبديل الوضع الليلي والنهاري"><i class="ph ph-sun"></i></button>
+                <button class="mobile-menu-btn btn-icon" aria-label="فتح قائمة التنقل"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <div style="height: 60px;"></div>
+
+    <div id="details-content">
+        <!-- Injected via JS -->
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            const type = urlParams.get('type') || 'novel';
+            
+            let item = null;
+            if (type === 'manga') {
+                item = window.readoraData.manga.find(m => m.id === id);
+            } else {
+                item = window.readoraData.novels.find(n => n.id === id);
+            }
+
+            if (!item) {
+                document.getElementById('details-content').innerHTML = `
+                    <div class="container empty-state">
+                        <i class="ph ph-warning-circle"></i>
+                        <h3>العنصر غير موجود</h3>
+                        <a href="explore.html" class="btn btn-primary" style="margin-top: 1rem;">العودة للتصفح</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const renderDetails = () => {
+                const lang = LanguageManager.currentLang;
+                const title = lang === 'ar' ? item.titleAr : item.titleEn;
+                const desc = lang === 'ar' ? item.descAr : item.descEn;
+                
+                const favorites = JSON.parse(localStorage.getItem('readora_favorites') || '[]');
+                const isFavorite = favorites.includes(id);
+
+                document.title = `Readora - ${title}`;
+
+                document.getElementById('details-content').innerHTML = `
+                    <header class="details-header">
+                        <div class="details-bg" style="background-image: url('${item.cover}')"></div>
+                        <div class="container details-container fade-in">
+                            <img src="${item.cover}" alt="${title}" class="details-cover">
+                            <div class="details-info">
+                                <h1 class="details-title">${title}</h1>
+                                <p class="details-author"><i class="ph ph-pen-nib"></i> ${item.author}</p>
+                                
+                                <div class="details-meta">
+                                    <div class="meta-item"><i class="ph-fill ph-star"></i> ${item.rating}</div>
+                                    <div class="meta-item"><i class="ph ph-tag"></i> ${item.category}</div>
+                                    <div class="meta-item"><i class="ph ph-book-open"></i> ${item.chapters} ${LanguageManager.get('chapters')}</div>
+                                </div>
+                                
+                                <p class="details-desc">${desc}</p>
+                                
+                                <div class="details-actions">
+                                    <a href="reader.html?id=${id}&type=${type}" class="btn btn-primary">
+                                        <i class="ph-fill ph-book-open"></i> <span data-i18n="btn_start_reading">${LanguageManager.get('btn_start_reading')}</span>
+                                    </a>
+                                    <button class="btn btn-secondary" id="fav-btn" data-require-auth="favorite" data-item-id="${id}">
+                                        <i class="${isFavorite ? 'ph-fill text-danger' : 'ph'} ph-heart" style="${isFavorite ? 'color: var(--danger);' : ''}"></i>
+                                        <span>${isFavorite ? LanguageManager.get('btn_remove_favorite') : LanguageManager.get('btn_add_favorite')}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                `;
+
+                const favBtn = document.getElementById('fav-btn');
+                if (favBtn) {
+                    favBtn.addEventListener('click', () => {
+                        let favs = JSON.parse(localStorage.getItem('readora_favorites') || '[]');
+                        if (favs.includes(id)) {
+                            favs = favs.filter(f => f !== id);
+                        } else {
+                            favs.push(id);
+                        }
+                        localStorage.setItem('readora_favorites', JSON.stringify(favs));
+                        renderDetails(); // Re-render to update button state
+                    });
+                }
+            };
+
+            renderDetails();
+            document.addEventListener('languageChanged', renderDetails);
+        });
+    </script>
+</body>
+</html>

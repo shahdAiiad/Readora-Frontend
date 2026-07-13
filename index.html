@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readora - منصة القراءة الفاخرة</title>
+    <meta name="description"
+        content="ريدورا - منصة عربية فاخرة لقراءة الروايات والمانجا، بتجربة قراءة سلسة وجودة عالية.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./assets/images/icon.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0a0e17">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="ph-fill ph-book-open-text"></i> Readora
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active" data-i18n="nav_home">الرئيسية</a></li>
+                <li><a href="explore.html" class="nav-link" data-i18n="nav_explore">تصفح</a></li>
+                <li><a href="favorites.html" class="nav-link" data-i18n="nav_favorites">المفضلة</a></li>
+                <li><a href="about.html" class="nav-link" data-i18n="nav_about">من نحن</a></li>
+                <li><a href="profile.html" class="nav-link" data-i18n="nav_profile">حسابي</a></li>
+                <li class="nav-login-item" id="nav-login-item"></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div id="auth-header-slot"></div>
+                <button id="lang-toggle" class="btn-icon" aria-label="تغيير اللغة / Change language">
+                    <i class="ph ph-translate"></i>
+                    <span style="font-size: 0.8rem; margin: 0 4px; font-weight: bold;">EN</span>
+                </button>
+                <button id="theme-toggle" class="btn-icon" aria-label="تبديل الوضع الليلي والنهاري">
+                    <i class="ph ph-sun"></i>
+                </button>
+                <button class="mobile-menu-btn btn-icon" aria-label="فتح قائمة التنقل">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <div class="hero-text fade-in">
+                <h1 data-i18n="hero_title" class="gradient-text">اكتشف عوالم لا حدود لها</h1>
+                <p data-i18n="hero_desc">ريدورا هي بوابتك لأفضل الروايات والمانجا. انغمس في قصص تأخذك إلى أبعاد أخرى.
+                </p>
+                <div class="hero-buttons">
+                    <a href="explore.html" class="btn btn-primary">
+                        <i class="ph ph-compass"></i> <span data-i18n="btn_explore">تصفح الآن</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image fade-in" style="animation-delay: 0.2s;">
+                <div class="glass-panel"
+                    style="width: 100%; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                    <!-- A beautiful floating image arrangement or just a single impressive placeholder -->
+                    <img src="./assets/images/readora.webp" alt="Hero Image"
+                        style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
+                    <div
+                        style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(59, 130, 246, 0.2));">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Continue Reading -->
+    <section class="section" id="continue-reading-section" style="display: none; padding-top: 0;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="section_continue">متابعة القراءة</h2>
+            </div>
+            <div class="horizontal-scroll" id="continue-reading-container">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Novels -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="section_featured">روايات مميزة</h2>
+                <a href="explore.html?type=novel" class="btn btn-secondary" data-i18n="view_all">عرض الكل</a>
+            </div>
+            <div class="card-grid" id="featured-novels">
+                <!-- Skeletons initially, then content injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Manga -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="section_popular_manga">مانجا شهيرة</h2>
+                <a href="explore.html?type=manga" class="btn btn-secondary" data-i18n="view_all">عرض الكل</a>
+            </div>
+            <div class="card-grid" id="popular-manga">
+                <!-- Skeletons initially, then content injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+                        <i class="ph-fill ph-book-open-text"></i> Readora
+                    </a>
+                    <p data-i18n="footer_desc">ريدورا هي المنصة الرائدة لقراءة الروايات والمانجا العربية والمترجمة بجودة
+                        عالية وتجربة مستخدم لا مثيل لها.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
+                        <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+                        <a href="#" class="social-link"><i class="ph-fill ph-discord-logo"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_links">روابط سريعة</h4>
+                    <div class="footer-links">
+                        <a href="index.html" data-i18n="nav_home">الرئيسية</a>
+                        <a href="explore.html" data-i18n="nav_explore">تصفح</a>
+                        <a href="about.html" data-i18n="nav_about">من نحن</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_legal">قانوني</h4>
+                    <div class="footer-links">
+                        <a href="#" data-i18n="footer_terms">الشروط والأحكام</a>
+                        <a href="#" data-i18n="footer_privacy">سياسة الخصوصية</a>
+                    </div>
+                </div>
+
+
+                <div class="footer-col">
+                    <h4 data-i18n="footer_contact">تواصل معنا</h4>
+                    <div class="footer-links">
+                        <a href="mailto:support@readora.com">support@readora.com</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer_rights">جميع الحقوق محفوظة لريدورا 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const renderHomeContent = () => {
+                const novelsContainer = document.getElementById('featured-novels');
+                const mangaContainer = document.getElementById('popular-manga');
+
+                // Show skeletons first
+                novelsContainer.innerHTML = Array(4).fill(App.createSkeletonCard()).join('');
+                mangaContainer.innerHTML = Array(4).fill(App.createSkeletonCard()).join('');
+
+                // Simulate network delay for premium feel
+                setTimeout(() => {
+                    const topNovels = window.readoraData.novels.slice(0, 4);
+                    const topManga = window.readoraData.manga.slice(0, 4);
+
+                    novelsContainer.innerHTML = topNovels.map(item => App.createCardHTML(item)).join('');
+                    mangaContainer.innerHTML = topManga.map(item => App.createCardHTML(item, true)).join('');
+                }, 800);
+            };
+
+            const renderContinueReading = () => {
+                const progress = JSON.parse(localStorage.getItem('readora_progress') || '{}');
+                const container = document.getElementById('continue-reading-container');
+                const section = document.getElementById('continue-reading-section');
+
+                const keys = Object.keys(progress);
+                if (keys.length > 0) {
+                    section.style.display = 'block';
+
+                    let html = '';
+                    keys.forEach(id => {
+                        const progData = progress[id];
+                        let item = window.readoraData.novels.find(n => n.id === id);
+                        let isManga = false;
+                        if (!item) {
+                            item = window.readoraData.manga.find(m => m.id === id);
+                            isManga = true;
+                        }
+
+                        if (item) {
+                            const title = LanguageManager.currentLang === 'ar' ? item.titleAr : item.titleEn;
+                            const percent = Math.min(100, Math.round((progData.chapter / item.chapters) * 100));
+
+                            html += `
+                                <a href="reader.html?id=${id}&type=${isManga ? 'manga' : 'novel'}" class="glass-card continue-card">
+                                    <img src="${item.cover}" alt="${title}" class="continue-img" loading="lazy">
+                                    <div class="continue-info">
+                                        <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">${title}</h4>
+                                        <span style="font-size: 0.8rem; color: var(--text-secondary);">${LanguageManager.get('chapters')} ${progData.chapter}</span>
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar" style="width: ${percent}%;"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            `;
+                        }
+                    });
+                    container.innerHTML = html;
+                }
+            };
+
+            renderHomeContent();
+            renderContinueReading();
+
+            document.addEventListener('languageChanged', () => {
+                renderHomeContent();
+                renderContinueReading();
+            });
+        });
+    </script>
+</body>
+
+</html>
