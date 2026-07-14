@@ -16,36 +16,8 @@
     <meta name="theme-color" content="#0a0e17">
 </head>
 <body>
-    <nav class="navbar scrolled">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <i class="ph-fill ph-book-open-text"></i> Readora
-            </a>
-
-            <ul class="nav-links">
-                <li><a href="index.html" class="nav-link" data-i18n="nav_home">الرئيسية</a></li>
-                <li><a href="explore.html" class="nav-link" data-i18n="nav_explore">تصفح</a></li>
-                <li><a href="favorites.html" class="nav-link" data-i18n="nav_favorites">المفضلة</a></li>
-                <li><a href="about.html" class="nav-link" data-i18n="nav_about">من نحن</a></li>
-                <li><a href="profile.html" class="nav-link" data-i18n="nav_profile">حسابي</a></li>
-                <li class="nav-login-item" id="nav-login-item"></li>
-            </ul>
-
-            <div class="nav-actions">
-                <div id="auth-header-slot"></div>
-                <button id="lang-toggle" class="btn-icon" aria-label="تغيير اللغة / Change language">
-                    <i class="ph ph-translate"></i>
-                    <span style="font-size: 0.8rem; margin: 0 4px; font-weight: bold;">EN</span>
-                </button>
-                <button id="theme-toggle" class="btn-icon" aria-label="تبديل الوضع الليلي والنهاري">
-                    <i class="ph ph-sun"></i>
-                </button>
-                <button class="mobile-menu-btn btn-icon" aria-label="فتح قائمة التنقل">
-                    <i class="ph ph-list"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
+    <!-- Navbar -->
+    <div id="navbar-root"></div>
 
     <section class="section" style="min-height: 70vh; display: flex; align-items: center;">
         <div class="container" style="text-align: center;">
@@ -61,22 +33,10 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <a href="index.html" class="logo" style="margin-bottom: 1rem;">
-                        <i class="ph-fill ph-book-open-text"></i> Readora
-                    </a>
-                    <p data-i18n="footer_desc">ريدورا هي المنصة الرائدة لقراءة الروايات والمانجا العربية والمترجمة بجودة عالية وتجربة مستخدم لا مثيل لها.</p>
-                </div>
-                <div class="footer-col">
-                    <h4 data-i18n="footer_rights">جميع الحقوق محفوظة لريدورا 2026</h4>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div id="footer-root"></div>
 
+    <script src="js/components.js"></script>
+    <script>initComponents();</script>
     <script src="js/language.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/firebase-config.js"></script>

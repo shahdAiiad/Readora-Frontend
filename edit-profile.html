@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +33,7 @@
             gap: 1rem;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .edit-profile-header h1 {
@@ -59,7 +60,7 @@
             padding: 1rem;
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .profile-photo-preview {
@@ -164,30 +165,10 @@
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#0a0e17">
 </head>
+
 <body>
-    <nav class="navbar scrolled">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <i class="ph-fill ph-book-open-text"></i> Readora
-            </a>
-
-            <ul class="nav-links">
-                <li><a href="index.html" class="nav-link" data-i18n="nav_home">الرئيسية</a></li>
-                <li><a href="explore.html" class="nav-link" data-i18n="nav_explore">تصفح</a></li>
-                <li><a href="favorites.html" class="nav-link" data-i18n="nav_favorites">المفضلة</a></li>
-                <li><a href="about.html" class="nav-link" data-i18n="nav_about">من نحن</a></li>
-                <li><a href="profile.html" class="nav-link active" data-i18n="nav_profile">حسابي</a></li>
-                <li class="nav-login-item" id="nav-login-item"></li>
-            </ul>
-
-            <div class="nav-actions">
-                <div id="auth-header-slot"></div>
-                <button id="lang-toggle" class="btn-icon" aria-label="تغيير اللغة / Change language"><i class="ph ph-translate"></i><span style="font-size: 0.8rem; margin: 0 4px; font-weight: bold;">EN</span></button>
-                <button id="theme-toggle" class="btn-icon" aria-label="تبديل الوضع الليلي والنهاري"><i class="ph ph-sun"></i></button>
-                <button class="mobile-menu-btn btn-icon" aria-label="فتح قائمة التنقل"><i class="ph ph-list"></i></button>
-            </div>
-        </div>
-    </nav>
+    <!-- Navbar -->
+    <div id="navbar-root"></div>
 
     <div style="height: 100px;"></div>
 
@@ -204,10 +185,12 @@
                 <form class="edit-profile-form" id="edit-profile-form" novalidate>
                     <div class="profile-photo-field">
                         <div class="profile-photo-preview">
-                            <img id="edit-profile-avatar" src="https://picsum.photos/seed/avatar/200/200" alt="Profile preview">
+                            <img id="edit-profile-avatar" src="https://picsum.photos/seed/avatar/200/200"
+                                alt="Profile preview">
                         </div>
                         <div class="profile-photo-actions">
-                            <button type="button" class="btn btn-secondary" id="change-photo-btn" data-i18n="change_photo">تغيير الصورة</button>
+                            <button type="button" class="btn btn-secondary" id="change-photo-btn"
+                                data-i18n="change_photo">تغيير الصورة</button>
                             <input type="file" id="profile-photo-input" accept="image/*" hidden>
                             <span class="helper-text" data-i18n="profile_photo_hint">PNG أو JPG حتى 5MB</span>
                         </div>
@@ -216,32 +199,38 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="profile-full-name" data-i18n="full_name">الاسم الكامل</label>
-                            <input type="text" id="profile-full-name" class="form-input" placeholder="أدخل اسمك الكامل" style="padding-right: 1rem; padding-left: 1rem;">
+                            <input type="text" id="profile-full-name" class="form-input" placeholder="أدخل اسمك الكامل"
+                                style="padding-right: 1rem; padding-left: 1rem;">
                             <p class="field-error-message" data-field="fullName"></p>
                         </div>
 
                         <div class="form-group">
                             <label for="profile-email" data-i18n="email">البريد الإلكتروني</label>
-                            <input type="email" id="profile-email" class="form-input" style="padding-right: 1rem; padding-left: 1rem;">
+                            <input type="email" id="profile-email" class="form-input"
+                                style="padding-right: 1rem; padding-left: 1rem;">
                             <p class="field-error-message" data-field="email"></p>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="profile-bio" data-i18n="profile_bio_label">السيرة الذاتية</label>
-                        <textarea id="profile-bio" class="form-input" rows="3" style="padding-right: 1rem; padding-left: 1rem;"></textarea>
+                        <textarea id="profile-bio" class="form-input" rows="3"
+                            style="padding-right: 1rem; padding-left: 1rem;"></textarea>
                     </div>
 
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="profile-password" data-i18n="new_password">كلمة المرور الجديدة</label>
-                            <input type="password" id="profile-password" class="form-input" placeholder="*********" style="padding-right: 1rem; padding-left: 1rem;">
+                            <input type="password" id="profile-password" class="form-input" placeholder="*********"
+                                style="padding-right: 1rem; padding-left: 1rem;">
                             <p class="field-error-message" data-field="password"></p>
                         </div>
 
                         <div class="form-group">
-                            <label for="profile-confirm-password" data-i18n="auth_confirm_password">تأكيد كلمة المرور</label>
-                            <input type="password" id="profile-confirm-password" class="form-input" placeholder="*********" style="padding-right: 1rem; padding-left: 1rem;">
+                            <label for="profile-confirm-password" data-i18n="auth_confirm_password">تأكيد كلمة
+                                المرور</label>
+                            <input type="password" id="profile-confirm-password" class="form-input"
+                                placeholder="*********" style="padding-right: 1rem; padding-left: 1rem;">
                         </div>
                     </div>
 
@@ -254,22 +243,11 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <a href="index.html" class="logo" style="margin-bottom: 1rem;">
-                        <i class="ph-fill ph-book-open-text"></i> Readora
-                    </a>
-                    <p data-i18n="footer_desc">ريدورا هي المنصة الرائدة لقراءة الروايات والمانجا العربية والمترجمة بجودة عالية وتجربة مستخدم لا مثيل لها.</p>
-                </div>
-                <div class="footer-col">
-                    <h4 data-i18n="footer_rights">جميع الحقوق محفوظة لريدورا 2026</h4>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer -->
+    <div id="footer-root"></div>
 
+    <script src="js/components.js"></script>
+    <script>initComponents();</script>
     <script src="js/language.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/firebase-config.js"></script>
@@ -288,7 +266,7 @@
             const changePhotoButton = document.getElementById('change-photo-btn');
             const avatarPreview = document.getElementById('edit-profile-avatar');
             const errorElements = document.querySelectorAll('.field-error-message');
-            
+
             // Unify with global user
             const authManager = window.AuthManager;
             const langManager = window.LanguageManager || (typeof LanguageManager !== 'undefined' ? LanguageManager : null);
@@ -305,7 +283,7 @@
                         // ignore
                     }
                 }
-                
+
                 // Fallback demo user if accessed directly without being logged in
                 // (though auth manager should block this ideally)
                 return {
@@ -349,7 +327,7 @@
                 if (!file) {
                     return;
                 }
-                
+
                 // Max size check: 5MB
                 if (file.size > 5 * 1024 * 1024) {
                     alert(langManager ? langManager.get('profile_photo_hint') : 'Image must be up to 5MB');
@@ -401,15 +379,16 @@
                 if (passwordValue) {
                     state.password = passwordValue;
                 }
-                
+
                 // Save globally
                 localStorage.setItem('readora_user', JSON.stringify(state));
                 if (authManager) authManager.state.user = state;
-                
+
                 localStorage.setItem(updatedKey, 'true');
                 window.location.href = 'profile.html';
             });
         });
     </script>
 </body>
+
 </html>

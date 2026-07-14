@@ -28,36 +28,7 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <i class="ph-fill ph-book-open-text"></i> Readora
-            </a>
-
-            <ul class="nav-links">
-                <li><a href="index.html" class="nav-link active" data-i18n="nav_home">الرئيسية</a></li>
-                <li><a href="explore.html" class="nav-link" data-i18n="nav_explore">تصفح</a></li>
-                <li><a href="favorites.html" class="nav-link" data-i18n="nav_favorites">المفضلة</a></li>
-                <li><a href="about.html" class="nav-link" data-i18n="nav_about">من نحن</a></li>
-                <li><a href="profile.html" class="nav-link" data-i18n="nav_profile">حسابي</a></li>
-                <li class="nav-login-item" id="nav-login-item"></li>
-            </ul>
-
-            <div class="nav-actions">
-                <div id="auth-header-slot"></div>
-                <button id="lang-toggle" class="btn-icon" aria-label="تغيير اللغة / Change language">
-                    <i class="ph ph-translate"></i>
-                    <span style="font-size: 0.8rem; margin: 0 4px; font-weight: bold;">EN</span>
-                </button>
-                <button id="theme-toggle" class="btn-icon" aria-label="تبديل الوضع الليلي والنهاري">
-                    <i class="ph ph-sun"></i>
-                </button>
-                <button class="mobile-menu-btn btn-icon" aria-label="فتح قائمة التنقل">
-                    <i class="ph ph-list"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
+    <div id="navbar-root"></div>
 
     <!-- Hero Section -->
     <header class="hero">
@@ -126,52 +97,11 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <a href="index.html" class="logo" style="margin-bottom: 1rem;">
-                        <i class="ph-fill ph-book-open-text"></i> Readora
-                    </a>
-                    <p data-i18n="footer_desc">ريدورا هي المنصة الرائدة لقراءة الروايات والمانجا العربية والمترجمة بجودة
-                        عالية وتجربة مستخدم لا مثيل لها.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
-                        <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
-                        <a href="#" class="social-link"><i class="ph-fill ph-discord-logo"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4 data-i18n="footer_links">روابط سريعة</h4>
-                    <div class="footer-links">
-                        <a href="index.html" data-i18n="nav_home">الرئيسية</a>
-                        <a href="explore.html" data-i18n="nav_explore">تصفح</a>
-                        <a href="about.html" data-i18n="nav_about">من نحن</a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4 data-i18n="footer_legal">قانوني</h4>
-                    <div class="footer-links">
-                        <a href="#" data-i18n="footer_terms">الشروط والأحكام</a>
-                        <a href="#" data-i18n="footer_privacy">سياسة الخصوصية</a>
-                    </div>
-                </div>
-
-
-                <div class="footer-col">
-                    <h4 data-i18n="footer_contact">تواصل معنا</h4>
-                    <div class="footer-links">
-                        <a href="mailto:support@readora.com">support@readora.com</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p data-i18n="footer_rights">جميع الحقوق محفوظة لريدورا 2026</p>
-            </div>
-        </div>
-    </footer>
+    <div id="footer-root"></div>
 
     <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script>initComponents({ scrolled: false });</script>
     <script src="js/data.js"></script>
     <script src="js/language.js"></script>
     <script src="js/theme.js"></script>

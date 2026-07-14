@@ -419,15 +419,10 @@ html[dir="rtl"] .lang-dropdown {
 .navbar.scrolled{
 
 background:var(--glass-bg);
-
 backdrop-filter:blur(18px);
-
 -webkit-backdrop-filter:blur(18px);
-
 border-bottom:1px solid var(--glass-border);
-
 box-shadow:var(--glass-shadow);
-
 padding:.75rem 0;
 
 }
